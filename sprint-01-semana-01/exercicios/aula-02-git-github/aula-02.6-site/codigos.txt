@@ -1,0 +1,77 @@
+git config --global user.name
+git config --global user.email
+git config --global init.branch
+
+git init
+git status
+git add
+git add .
+git rm --cached
+git commit -m "Primeiro commit - Todos os arquivos"
+
+se quiser descartar as mudanças feitas(voltar a como
+era no commit anterior), antes de estar no stage
+git restore
+
+se quiser tirar o arquivo do stage
+git restore --staged
+git diff
+
+para saber quantas e quais alterações foram feitas no projeto
+git log
+para mostrar cada log em só uma linha
+git log --oneline
+
+para pular o status de staging e fazer o commit mais rápido 
+git commit -a -m "Commit"
+
+para renomear arquivos, file1.jpg é o nome que esta no momento,
+file.jpg é o nome que eu quero colocar nesse arquivo
+git mv file1.jpg file.jpg
+
+para mudar a mensagem do commit do ultimo commit realizado
+git commit -m "Alterei a data de fundação da empresa para 1880" --amend
+
+para saber tudo o que mudou em cada commit
+git log -p
+
+para voltar em um ponto do projeto especifico, que é determinado pelo
+codigo do commit, no modo hard, tudo que estava "a frente" deste commit
+é apagado
+git reset --hard codigo do commit
+
+usado para poder digitar o comando "log --oneline" como "log1", ficando
+assim: git log1.
+git config --global alias.log1 "log --oneline"
+
+Ver todas as branchs
+git branch
+
+Cria a branch
+git branch AddMenu
+
+Troca entre as branchs
+git switch AddMenu
+
+Cria a branch e ja muda para ela
+git checkout AddMenu
+
+Juntando a branch AddMenu com a Main. -m é para adicionar uma mensagem.
+git merge -m "Merge da Branch AddMenu para a Branch Main" AddMenu
+
+Deletando a branch AddMenu
+git branch -d AddMenu
+
+fazer o push no gitHub
+git remote add origin link do repositorio
+git branch -M main
+git push -u origin main
+
+já cria e muda para a branch
+git switch -c AddItem
+
+fazer o push de mais de uma branch
+git push --all
+
+trazer as alterações do repositorio remoto para o local
+git pull
