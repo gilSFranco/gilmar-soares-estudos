@@ -68,80 +68,81 @@ OBS: Cada tópico vale um ponto.
 
 # Adicionando uma lista com os principais comandos aprendidos em git:
 
-git config --global user.name
-git config --global user.email
-git config --global init.branch
+    - git config --global user.name
+    - git config --global user.email
+    - git config --global init.branch
 
-git init
-git status
-git add
-git add .
-git rm --cached
-git commit -m "Primeiro commit - Todos os arquivos"
+    - git init
+    - git status
+    - git add
+    - git add .
+    - git rm --cached
+    - git commit -m "Primeiro commit - Todos os arquivos"
 
-se quiser descartar as mudanças feitas(voltar a como
-era no commit anterior), antes de estar no stage
-git restore
+    - Se quiser descartar as mudanças feitas(voltar a como
+    era no commit anterior), antes de estar no stage.
+        git restore
 
-se quiser tirar o arquivo do stage
-git restore --staged
-git diff
+    - Se quiser tirar o arquivo do stage.
+        git restore --staged
+        git diff
 
-para saber quantas e quais alterações foram feitas no projeto
-git log
-para mostrar cada log em só uma linha
-git log --oneline
+    - Para saber quantas e quais alterações foram feitas no projeto.
+        git log
 
-para pular o status de staging e fazer o commit mais rápido 
-git commit -a -m "Commit"
+    - Para mostrar cada log em só uma linha.
+        git log --oneline
 
-para renomear arquivos, file1.jpg é o nome que esta no momento,
-file.jpg é o nome que eu quero colocar nesse arquivo
-git mv file1.jpg file.jpg
+    - Para pular o status de staging e fazer o commit mais rápido .
+        git commit -a -m "Commit"
 
-para mudar a mensagem do commit do ultimo commit realizado
-git commit -m "Alterei a data de fundação da empresa para 1880" --amend
+    - Para renomear arquivos, file1.jpg é o nome que esta no momento,
+    file.jpg é o nome que eu quero colocar nesse arquivo.
+        git mv file1.jpg file.jpg
 
-para saber tudo o que mudou em cada commit
-git log -p
+    - Para mudar a mensagem do commit do ultimo commit realizado.
+        git commit -m "Alterei a data de fundação da empresa para 1880" --amend
 
-para voltar em um ponto do projeto especifico, que é determinado pelo
-codigo do commit, no modo hard, tudo que estava "a frente" deste commit
-é apagado
-git reset --hard codigo do commit
+    - Para saber tudo o que mudou em cada commit.
+        git log -p
 
-usado para poder digitar o comando "log --oneline" como "log1", ficando
-assim: git log1.
-git config --global alias.log1 "log --oneline"
+    - Para voltar em um ponto do projeto especifico, que é determinado pelo
+    codigo do commit, no modo hard, tudo que estava "a frente" deste commit
+    é apagado.
+        git reset --hard codigo do commit
 
-Ver todas as branchs
-git branch
+    - Usado para poder digitar o comando "log --oneline" como "log1", ficando
+    assim: git log1.
+        git config --global alias.log1 "log --oneline"
 
-Cria a branch
-git branch AddMenu
+    - Ver todas as branchs
+        git branch
 
-Troca entre as branchs
-git switch AddMenu
+    - Cria a branch
+        git branch AddMenu
 
-Cria a branch e ja muda para ela
-git checkout AddMenu
+    - Troca entre as branchs
+        git switch AddMenu
 
-Juntando a branch AddMenu com a Main. -m é para adicionar uma mensagem.
-git merge -m "Merge da Branch AddMenu para a Branch Main" AddMenu
+    - Cria a branch e ja muda para ela
+        git checkout AddMenu
 
-Deletando a branch AddMenu
-git branch -d AddMenu
+    - Juntando a branch AddMenu com a Main. -m é para adicionar uma mensagem.
+        git merge -m "Merge da Branch AddMenu para a Branch Main" AddMenu
 
-fazer o push no gitHub
-git remote add origin link do repositorio
-git branch -M main
-git push -u origin main
+    - Deletando a branch AddMenu
+        git branch -d AddMenu
 
-já cria e muda para a branch
-git switch -c AddItem
+    - Fazer o push no gitHub
+        git remote add origin link do repositorio
+        git branch -M main
+        git push -u origin main
 
-fazer o push de mais de uma branch
-git push --all
+    - Cria e muda para a branch
+        git switch -c AddItem
 
-trazer as alterações do repositorio remoto para o local
-git pull
+    - Fazer o push de mais de uma branch
+        git push --all
+
+    - Trazer as alterações do repositorio remoto para o local
+        git pull
