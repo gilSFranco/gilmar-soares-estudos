@@ -1,1 +1,20 @@
 git config --list
+
+para navegar entre os commits
+git checkout branch/id do commit
+
+para desfazer alterações feitas(voltar no estado do ultimo commit)
+git clean -df
+git checkout -- .
+
+VIM
+git commit
+
+para editar aperta i e escreve a mensagem do commit
+
+salvar alterações
+para sair esc -> :wq -> enter
+
+para descartar as alterações
+para sair esc -> :q! -> enter
+
