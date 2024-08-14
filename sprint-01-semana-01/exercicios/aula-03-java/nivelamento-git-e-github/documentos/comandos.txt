@@ -18,3 +18,16 @@ para sair esc -> :wq -> enter
 para descartar as alterações
 para sair esc -> :q! -> enter
 
+deleta o ultimo commit feito, porem nao apaga as alterações feitas(pode ser
+usada quando voce erra a mensagem do commit por exemplo)
+git reset --soft HEAD~1
+
+deleta o ultimo commit feito, e apaga tambem todas as alteracoes feitas
+git reset --hard HEAD~1
+
+para forcar as mudanças feitas localmente a sobrescreverem o repositorio remoto
+git push -f
+
+apontar o repositorio local para um novo repositorio remoto, com todo
+o historico e arquivos do ultimo repositorio
+git remote set-url origin link do repositorio
