@@ -31,6 +31,8 @@ public class Main {
         LocalDateTime d11 = LocalDateTime.of(2022, 7, 20, 1, 30);
 
         //É a mesma coisa que fazer dataAtual.toString()
+        System.out.println(fmt2.format(dataEHoraAtual));
+
         System.out.println(dataAtual);
         System.out.println(dataEHoraAtual);
         System.out.println(dataEHoraAtualComFusoHorario);
@@ -39,7 +41,7 @@ public class Main {
         System.out.println(textoParaDataEHoraComFuso);
         System.out.println(textoParaDataEHoraComFusoSaoPaulo);
         System.out.println(d08);
-        System.out.println(d09);
+        System.out.println(d09 + "a");
         System.out.println(d10);
         System.out.println(d11);
 
