@@ -88,13 +88,13 @@ public class Seller implements Serializable {
 
     @Override
     public String toString() {
-        return "Seller \n{" +
+        return "Seller {" +
                 "id=" + id +
-                ",\n name='" + name + '\'' +
-                ",\n email='" + email + '\'' +
-                ",\n birthDate=" + birthDate +
-                ",\n baseSalary=" + baseSalary +
-                ",\n department=" + department +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                ", baseSalary=" + baseSalary +
+                ", department=" + department +
                 '}';
     }
 }
