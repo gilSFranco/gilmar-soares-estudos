@@ -18,8 +18,8 @@ Siga o passo a passo abaixo para configurar o projeto em seu ambiente de desenvo
 1. **Clone o repositório**
 
    ```bash
-   git clone https://github.com/gilSFranco/Sistema-de-Gestao-de-Estacionamento.git
-   cd Sistema-de-Gestao-de-Estacionamento
+   git clone https://github.com/gilSFranco/gilmar-soares-estudos.git
+   cd gilmar-soares-estudos
    ```
 
 ### Estrutura de Projeto

@@ -1,8 +1,6 @@
 # Sistema de Gestão de Estacionamento
 
-Estou no programa de bolsas da compass UOL e essa foi a atividade da semana,
-desenvolver um jogo de Xadrez. Para desenvolvê-lo utilizei Java Orientado a
-Objetos.
+Estou no programa de bolsas da compass UOL, 4° semana.
 
 ## Requisitos
 
