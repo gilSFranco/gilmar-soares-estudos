@@ -1,5 +1,6 @@
 package com.compasso.workshopmongo.resources;
 
+import com.compasso.workshopmongo.domain.Post;
 import com.compasso.workshopmongo.domain.User;
 import com.compasso.workshopmongo.dto.UserDTO;
 import com.compasso.workshopmongo.services.UserService;
@@ -54,5 +55,11 @@ public class UserResource {
         object.setId(id);
         service.update(object);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User object = service.findById(id);
+        return ResponseEntity.ok().body(object.getPosts());
     }
 }
