@@ -29,6 +29,11 @@ public class BooksService {
         return repository.save(object);
     }
 
+    public void delete(String id) {
+        Books book = findById(id);
+        repository.delete(book);
+    }
+
     public Books fromDTO(BooksDTO object) {
         return new Books(object.getId(), object.getTitle(), object.getAuthor(), object.getYear(), object.getGender());
     }
