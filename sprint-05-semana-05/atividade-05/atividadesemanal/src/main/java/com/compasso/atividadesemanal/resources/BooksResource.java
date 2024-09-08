@@ -2,6 +2,7 @@ package com.compasso.atividadesemanal.resources;
 
 import com.compasso.atividadesemanal.domain.Books;
 import com.compasso.atividadesemanal.dto.BooksDTO;
+import com.compasso.atividadesemanal.resources.util.URL;
 import com.compasso.atividadesemanal.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,5 +54,14 @@ public class BooksResource {
         object.setId(id);
         object = service.update(object);
         return ResponseEntity.ok().body(new BooksDTO(object));
+    }
+
+    @GetMapping(value = "/authorsearch")
+    public ResponseEntity<List<BooksDTO>> findByAuthor(@RequestParam(value = "text", defaultValue = "") String author) {
+        author = URL.decodeParam(author);
+        List<Books> list = service.findByAuthor(author);
+        List<BooksDTO> listDto = list.stream().map(x -> new BooksDTO(x)).toList();
+
+        return ResponseEntity.ok().body(listDto);
     }
 }

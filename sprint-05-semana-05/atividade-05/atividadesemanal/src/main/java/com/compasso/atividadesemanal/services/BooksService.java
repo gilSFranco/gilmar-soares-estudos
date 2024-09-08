@@ -47,6 +47,10 @@ public class BooksService {
         newObject.setGender(object.getGender());
     }
 
+    public List<Books> findByAuthor(String author) {
+        return repository.findByAuthorContainingIgnoreCase(author);
+    }
+
     public Books fromDTO(BooksDTO object) {
         return new Books(object.getId(), object.getTitle(), object.getAuthor(), object.getYear(), object.getGender());
     }
