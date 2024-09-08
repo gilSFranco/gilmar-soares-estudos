@@ -1,10 +1,17 @@
 # Sistema de Gestão de Estacionamento
 
-Estou no programa de bolsas da compass UOL, 5° semana.
+Estou no programa de bolsas da compass UOL, na 5° semana. Na atividade da semana
+foi proposto que desenvolvêssemos uma API de uma livraria, utilizando o springboot
+e o mongoDB para armazenar os dados vindos das requisições dessa API. Além de cadastrar,
+deletar e atualizar esses dados, deve ser possivel também filtrar os livros escritos
+por um determinado autor, ou até encontrar todos os livros publicados apartir de um certo ano.
 
 ## Requisitos
 
 - Java Development Kit (JDK) 21
+- Spring Boot 3.3.3
+- MongoDB 7.0.8
+- Apache Maven
 
 ## Instalação
 
@@ -19,7 +26,9 @@ Siga o passo a passo abaixo para configurar o projeto em seu ambiente de desenvo
 
 ### Estrutura de Projeto
 
- * `src`: Código-fonte principal do projeto
+ * `src/main/java`: Código-fonte principal do projeto
+ * `pom.xml`: Arquivo de configuração do Maven
+ * `src/main/resources/application.properties`: Arquivo de configuração de conexão do banco de dados (MongoDB)
 
  ### Contato
 
