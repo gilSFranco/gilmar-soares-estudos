@@ -46,4 +46,12 @@ public class BooksResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<BooksDTO> update(@PathVariable String id, @RequestBody BooksDTO objectDto) {
+        Books object = service.fromDTO(objectDto);
+        object.setId(id);
+        object = service.update(object);
+        return ResponseEntity.ok().body(new BooksDTO(object));
+    }
 }

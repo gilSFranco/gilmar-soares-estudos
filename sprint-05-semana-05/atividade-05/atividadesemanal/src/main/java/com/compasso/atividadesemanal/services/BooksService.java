@@ -34,6 +34,19 @@ public class BooksService {
         repository.delete(book);
     }
 
+    public Books update(Books object) {
+       Books newObject = findById(object.getId());
+       updateData(newObject, object);
+       return repository.save(newObject);
+    }
+
+    private void updateData(Books newObject, Books object) {
+        newObject.setTitle(object.getTitle());
+        newObject.setAuthor(object.getAuthor());
+        newObject.setYear(object.getYear());
+        newObject.setGender(object.getGender());
+    }
+
     public Books fromDTO(BooksDTO object) {
         return new Books(object.getId(), object.getTitle(), object.getAuthor(), object.getYear(), object.getGender());
     }
