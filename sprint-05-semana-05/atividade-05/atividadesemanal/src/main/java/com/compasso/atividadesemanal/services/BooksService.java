@@ -1,6 +1,7 @@
 package com.compasso.atividadesemanal.services;
 
 import com.compasso.atividadesemanal.domain.Books;
+import com.compasso.atividadesemanal.dto.BooksDTO;
 import com.compasso.atividadesemanal.repository.BooksRepository;
 import com.compasso.atividadesemanal.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class BooksService {
     public Books findById(String id) {
         Optional<Books> book = repository.findById(id);
         return book.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+    }
+
+    public Books insert(Books object) {
+        return repository.save(object);
+    }
+
+    public Books fromDTO(BooksDTO object) {
+        return new Books(object.getId(), object.getTitle(), object.getAuthor(), object.getYear(), object.getGender());
     }
 }
