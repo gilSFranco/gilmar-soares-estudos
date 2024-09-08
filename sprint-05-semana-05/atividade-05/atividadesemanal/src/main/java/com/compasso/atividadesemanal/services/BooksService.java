@@ -2,10 +2,12 @@ package com.compasso.atividadesemanal.services;
 
 import com.compasso.atividadesemanal.domain.Books;
 import com.compasso.atividadesemanal.repository.BooksRepository;
+import com.compasso.atividadesemanal.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BooksService {
@@ -17,4 +19,8 @@ public class BooksService {
         return repository.findAll();
     }
 
+    public Books findById(String id) {
+        Optional<Books> book = repository.findById(id);
+        return book.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+    }
 }
