@@ -1,9 +1,15 @@
 package com.compasso.atividadesemanal.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Document
 public class Books implements Serializable {
+
+    @Id
     private String id;
     private String title;
     private String author;
