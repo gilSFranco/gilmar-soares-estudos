@@ -31,30 +31,30 @@ Abaixo estarei disponibilizando um json para realização de testes com a aplica
 1. **Cadastrando**
 
    ```json
-      {
-         "title": "1984",
-         "author": "George Orwell",
-         "year": 1949,
-         "gender": "Ficção Científica"
-      },
-      {
-         "title": "Dom Casmurro",
-         "author": "Machado de Assis",
-         "year": 1899,
-         "gender": "Romance"
-      },
-      {
-         "title": "The Lord of the Rings",
-         "author": "J.R.R. Tolkien",
-         "year": 1954,
-         "gender": "Fantasia"
-      },
-      {
-         "title": "Animal Farm",
-         "author": "George Orwell",
-         "year": 1945,
-         "gender": "Fábuala"
-      }
+   {
+      "title": "1984",
+      "author": "George Orwell",
+      "year": 1949,
+      "gender": "Ficção Científica"
+   },
+   {
+      "title": "Dom Casmurro",
+      "author": "Machado de Assis",
+      "year": 1899,
+      "gender": "Romance"
+   },
+   {
+      "title": "The Lord of the Rings",
+      "author": "J.R.R. Tolkien",
+      "year": 1954,
+      "gender": "Fantasia"
+   },
+   {
+      "title": "Animal Farm",
+      "author": "George Orwell",
+      "year": 1945,
+      "gender": "Fábuala"
+   }
    ```
 
 ### Estrutura de Projeto
