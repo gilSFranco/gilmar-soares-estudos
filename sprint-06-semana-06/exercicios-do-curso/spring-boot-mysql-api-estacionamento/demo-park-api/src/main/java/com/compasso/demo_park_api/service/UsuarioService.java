@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UsuarioService {
@@ -15,6 +17,14 @@ public class UsuarioService {
     @Transactional
     public Usuario salvar(Usuario usuario) {
         return usuarioRepository.save(usuario);
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario findById(Long id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        return usuario.orElseThrow(
+                () -> new RuntimeException("Object not found")
+        );
     }
 
 }
