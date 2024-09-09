@@ -1,8 +1,8 @@
 # Sistema de Gestão de Estacionamento
 
 Estou no programa de bolsas da compass UOL, na 5° semana. Na atividade da semana
-foi proposto que desenvolvêssemos uma API de uma livraria, utilizando o springboot
-e o mongoDB para armazenar os dados vindos das requisições dessa API. Além de cadastrar,
+foi proposto que desenvolvêssemos uma API de uma livraria utilizando o springboot,
+e o mongoDB para armazenar os dados vindos das requisições dessa API criada. Além de cadastrar,
 deletar e atualizar esses dados, deve ser possivel também filtrar os livros escritos
 por um determinado autor, ou até encontrar todos os livros publicados apartir de um certo ano.
 
@@ -44,16 +44,16 @@ Abaixo estarei disponibilizando um json para realização de testes com a aplica
          "gender": "Romance"
       },
       {
-      "title": "The Lord of the Rings",
-      "author": "J.R.R. Tolkien",
-      "year": 1954,
-      "gender": "Fantasia"
+         "title": "The Lord of the Rings",
+         "author": "J.R.R. Tolkien",
+         "year": 1954,
+         "gender": "Fantasia"
       },
       {
-      "title": "Animal Farm",
-      "author": "George Orwell",
-      "year": 1945,
-      "gender": "Fábuala"
+         "title": "Animal Farm",
+         "author": "George Orwell",
+         "year": 1945,
+         "gender": "Fábuala"
       }
    ```
 
