@@ -15,7 +15,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
 
     @Transactional
-    public Usuario salvar(Usuario usuario) {
+    public Usuario insert(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
@@ -25,6 +25,13 @@ public class UsuarioService {
         return usuario.orElseThrow(
                 () -> new RuntimeException("Object not found")
         );
+    }
+
+    @Transactional
+    public Usuario updatePassword(Long id, String newPassword) {
+        Usuario objeto = findById(id);
+        objeto.setPassword(newPassword);
+        return objeto;
     }
 
 }

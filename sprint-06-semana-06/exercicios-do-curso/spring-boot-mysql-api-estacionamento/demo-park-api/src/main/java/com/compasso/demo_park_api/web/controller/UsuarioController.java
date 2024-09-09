@@ -16,13 +16,19 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario objeto = usuarioService.salvar(usuario);
+        Usuario objeto = usuarioService.insert(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(objeto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable Long id) {
         Usuario objeto = usuarioService.findById(id);
+        return ResponseEntity.ok().body(objeto);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Usuario> updatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
+        Usuario objeto = usuarioService.updatePassword(id, usuario.getPassword());
         return ResponseEntity.ok().body(objeto);
     }
 }
