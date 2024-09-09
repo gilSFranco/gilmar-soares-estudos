@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface BooksRepository extends MongoRepository<Books, String> {
     List<Books> findByAuthorContainingIgnoreCase(String author);
+    List<Books> findByYearGreaterThan(Integer year);
 }

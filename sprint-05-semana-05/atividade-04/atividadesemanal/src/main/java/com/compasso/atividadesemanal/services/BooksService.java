@@ -51,6 +51,10 @@ public class BooksService {
         return repository.findByAuthorContainingIgnoreCase(author);
     }
 
+    public List<Books> searchByYear(Integer year) {
+        return repository.findByYearGreaterThan(year);
+    }
+
     public Books fromDTO(BooksDTO object) {
         return new Books(object.getId(), object.getTitle(), object.getAuthor(), object.getYear(), object.getGender());
     }

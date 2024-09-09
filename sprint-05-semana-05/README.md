@@ -24,6 +24,39 @@ Siga o passo a passo abaixo para configurar o projeto em seu ambiente de desenvo
    cd gilmar-soares-estudos
    ```
 
+## Testando o projeto
+
+Abaixo estarei disponibilizando um json para realização de testes com a aplicação:
+
+1. **Cadastrando**
+
+   ```json
+      {
+         "title": "1984",
+         "author": "George Orwell",
+         "year": 1949,
+         "gender": "Ficção Científica"
+      },
+      {
+         "title": "Dom Casmurro",
+         "author": "Machado de Assis",
+         "year": 1899,
+         "gender": "Romance"
+      },
+      {
+      "title": "The Lord of the Rings",
+      "author": "J.R.R. Tolkien",
+      "year": 1954,
+      "gender": "Fantasia"
+      },
+      {
+      "title": "Animal Farm",
+      "author": "George Orwell",
+      "year": 1945,
+      "gender": "Fábuala"
+      }
+   ```
+
 ### Estrutura de Projeto
 
  * `src/main/java`: Código-fonte principal do projeto

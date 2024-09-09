@@ -63,4 +63,12 @@ public class BooksResource {
 
         return ResponseEntity.ok().body(listDto);
     }
+
+    @GetMapping(value = "/yearsearch")
+    public ResponseEntity<List<BooksDTO>> findByYear(@RequestParam(value = "year", defaultValue = "") Integer year) {
+        List<Books> list = service.searchByYear(year);
+        List<BooksDTO> listDto = list.stream().map(x -> new BooksDTO(x)).toList();
+
+        return ResponseEntity.ok().body(listDto);
+    }
 }
