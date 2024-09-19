@@ -1,7 +1,8 @@
 # Sistema de Gestão de Estacionamento
 
-Estou no programa de bolsas da compass UOL, na 6° semana. Na atividade da semana
-foi proposto.
+Estou no programa de bolsas da compass UOL, na 6° semana. Nessa semana a atividade
+foi um questionário sobre o conteúdo da semana inteira. Para poder testar e utilizar
+os programas desenvolvidos no curso, você deverá seguir esses passos:
 
 ## Requisitos
 
