@@ -4,6 +4,7 @@ import com.compass.aws_springboot.entities.User;
 import com.compass.aws_springboot.service.UserService;
 import com.compass.aws_springboot.web.dto.ResponseUserDTO;
 import com.compass.aws_springboot.web.dto.UserDTO;
+import com.compass.aws_springboot.web.dto.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
