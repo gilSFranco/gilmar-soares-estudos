@@ -1,0 +1,8 @@
+INSERT INTO vehicles (category, license_plate, payment_date, type, register)
+VALUES
+('ONETIME', 'XYZ-1234', null, 'PASSENGERCAR', TRUE),
+('DELIVERY', 'ABC-9876', null, 'DELIVERYTRUCK', FALSE),
+('MONTHLY', 'DEF-5432', NOW(), 'MOTORCYCLE', TRUE),
+('PUBLIC', 'GHI-7654', null, 'PUBLICSERVICE', FALSE),
+('ONETIME', 'JKL-3456', null, 'PASSENGERCAR', TRUE),
+('DELIVERY', 'MNO-6789', null, 'DELIVERYTRUCK', FALSE);

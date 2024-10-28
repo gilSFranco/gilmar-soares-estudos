@@ -1,0 +1,39 @@
+version: '3.9'
+services:
+    db:
+        image: mysql:8.4.2
+        restart: always
+        environment:
+            TZ: America/Sao_Paulo
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: docker
+            MYSQL_PASSWORD: root
+            MYSQL_DATABASE: rest_springboot
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_TCP_PORT: 3307
+        ports:
+            - 3307:3306
+        expose:
+            - 3307
+        networks:
+            - compasso-network
+    rest-springboot:
+        image: gigico/rest-springboot
+        restart: always
+        build: ./api-restful-spring-boot
+        working_dir: /api-restful-spring-boot
+        environment:
+            TZ: America/Sao_Paulo
+            SPRING.DATASOURCE.URL: jdbc:mysql://db:3307/rest_springboot
+            SPRING.DATASOURCE.USERNAME: root
+            SPRING.DATASOURCE.PASSWORD: root
+        ports:
+            - 80:80
+        command: ./mvnw spring-boot:run
+        depends_on:
+            - db
+        networks:
+            - compasso-network
+networks:
+    compasso-network:
+        driver: bridge

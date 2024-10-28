@@ -1,0 +1,6 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:tc:mysql:8.0.36:///db?TC_IMAGE_TAG=8.0

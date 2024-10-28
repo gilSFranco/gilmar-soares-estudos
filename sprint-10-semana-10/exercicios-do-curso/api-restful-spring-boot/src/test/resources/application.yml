@@ -1,0 +1,34 @@
+cors:
+  originPatterns: http://localhost:3000,http://localhost:8080,https://compasso.com.br
+
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
+
+server:
+  port: 8888
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    show_sql: false
+  flyway:
+    user: root
+    password: root
+    schemas: rest_springboot
+
+springdoc:
+  pathsToMatch:
+    - /auth/**
+    - /api/v1/**
+  swagger-ui:
+    path: /docs-park.html
+    use-root-path: true
+  api-docs:
+    path: /docs-park
+  packagesToScan: com.compasso.rest_spring.controller

@@ -1,10 +1,10 @@
-package com.compasso.rest_spring;
+package com.compasso.eurekaserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StartupTests {
+class EurekaserverApplicationTests {
 
 	@Test
 	void contextLoads() {

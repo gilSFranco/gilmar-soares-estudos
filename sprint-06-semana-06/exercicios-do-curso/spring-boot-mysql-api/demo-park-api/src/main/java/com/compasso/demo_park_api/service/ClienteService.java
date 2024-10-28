@@ -4,7 +4,6 @@ import com.compasso.demo_park_api.entity.Cliente;
 import com.compasso.demo_park_api.exception.ClienteCpfNotFoundException;
 import com.compasso.demo_park_api.exception.ClienteIdNotFoundException;
 import com.compasso.demo_park_api.exception.CpfUniqueViolationException;
-import com.compasso.demo_park_api.exception.EntityNotFoundException;
 import com.compasso.demo_park_api.repository.ClienteRepository;
 import com.compasso.demo_park_api.repository.projection.ClienteProjection;
 import lombok.RequiredArgsConstructor;
