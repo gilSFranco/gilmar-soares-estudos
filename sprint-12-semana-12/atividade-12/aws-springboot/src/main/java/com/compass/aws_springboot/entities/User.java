@@ -31,6 +31,24 @@ public class User implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "zip_code", nullable = false)
+    private String zipCode;
+
+    @Column(name = "street", nullable = false)
+    private String street;
+
+    @Column(name = "complement", nullable = false)
+    private String complement;
+
+    @Column(name = "neighborhood", nullable = false)
+    private String neighborhood;
+
+    @Column(name = "city", nullable = false)
+    private String city;
+
+    @Column(name = "state", nullable = false)
+    private String state;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
