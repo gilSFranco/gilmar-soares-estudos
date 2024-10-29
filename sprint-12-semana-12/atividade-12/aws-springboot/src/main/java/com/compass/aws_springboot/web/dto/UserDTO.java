@@ -1,6 +1,7 @@
 package com.compass.aws_springboot.web.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Getter
@@ -20,5 +21,6 @@ public class UserDTO {
     private String email;
 
     @NotBlank(message = "Cep cannot be blank or null")
+    @Size(min = 8, max = 8)
     private String cep;
 }
