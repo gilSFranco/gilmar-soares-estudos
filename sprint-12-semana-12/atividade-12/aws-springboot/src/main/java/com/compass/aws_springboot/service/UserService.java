@@ -1,6 +1,8 @@
 package com.compass.aws_springboot.service;
 
+import com.compass.aws_springboot.web.dto.ResponseViaCepDTO;
 import com.compass.aws_springboot.entities.User;
+import com.compass.aws_springboot.infra.clients.ViaCepResourceClient;
 import com.compass.aws_springboot.repository.UserRepository;
 import com.compass.aws_springboot.web.dto.UpdatePasswordDTO;
 import com.compass.aws_springboot.web.dto.UserDTO;
@@ -13,17 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final ViaCepResourceClient viaCepResourceClient;
 
     @Transactional
     public User createUser(UserDTO userDTO) {
+        ResponseViaCepDTO response = findAddressByZipCode(userDTO.getCep());
         User newUser = UserMapper.toUser(userDTO);
 
-        newUser.setZipCode("12345678");
-        newUser.setStreet("Example Street");
-        newUser.setComplement("Apt 01");
-        newUser.setNeighborhood("Example Neighborhood");
-        newUser.setCity("Example City");
-        newUser.setState("SP");
+        newUser.setZipCode(response.getZipCode());
+        newUser.setStreet(response.getStreet());
+        newUser.setComplement(response.getComplement());
+        newUser.setNeighborhood(response.getNeighborhood());
+        newUser.setCity(response.getCity());
+        newUser.setState(response.getState());
 
         return userRepository.save(newUser);
     }
@@ -45,5 +49,9 @@ public class UserService {
                         String.format("User with username '%s' not found.", username)
                 )
         );
+    }
+
+    public ResponseViaCepDTO findAddressByZipCode(String zipCode) {
+        return viaCepResourceClient.getZipCodeInformation(zipCode);
     }
 }
