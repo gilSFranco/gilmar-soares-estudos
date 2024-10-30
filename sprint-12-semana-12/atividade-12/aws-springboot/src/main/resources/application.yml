@@ -20,3 +20,9 @@ spring:
 mq:
   queues:
     listener-rabbitmq: listener-rabbitmq
+
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000

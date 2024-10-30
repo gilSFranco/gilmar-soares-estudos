@@ -6,6 +6,8 @@ import com.compass.aws_springboot.web.dto.ResponseUserDTO;
 import com.compass.aws_springboot.web.dto.UpdatePasswordDTO;
 import com.compass.aws_springboot.web.dto.UserDTO;
 import com.compass.aws_springboot.web.dto.mapper.UserMapper;
+import com.compass.aws_springboot.web.dto.security.AccountCredentialsDTO;
+import com.compass.aws_springboot.web.dto.security.TokenDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,12 @@ public class UserController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdUser.getId()).toUri();
 
         return ResponseEntity.created(uri).body(UserMapper.toDto(createdUser));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenDTO> login(@RequestBody @Valid AccountCredentialsDTO accountCredentialsDTO) {
+        TokenDTO token = userService.signInUser(accountCredentialsDTO);
+        return ResponseEntity.ok(token);
     }
 
     @PutMapping("/update-password")

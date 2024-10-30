@@ -2,6 +2,7 @@ package com.compass.aws_springboot.service;
 
 import com.compass.aws_springboot.domain.model.ServiceStatus;
 import com.compass.aws_springboot.infra.mqueue.SendingRabbitmqPublisher;
+import com.compass.aws_springboot.security.jwt.JwtTokenProvider;
 import com.compass.aws_springboot.web.dto.ResponseViaCepDTO;
 import com.compass.aws_springboot.entities.User;
 import com.compass.aws_springboot.infra.clients.ViaCepResourceClient;
@@ -9,7 +10,11 @@ import com.compass.aws_springboot.repository.UserRepository;
 import com.compass.aws_springboot.web.dto.UpdatePasswordDTO;
 import com.compass.aws_springboot.web.dto.UserDTO;
 import com.compass.aws_springboot.web.dto.mapper.UserMapper;
+import com.compass.aws_springboot.web.dto.security.AccountCredentialsDTO;
+import com.compass.aws_springboot.web.dto.security.TokenDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +24,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final ViaCepResourceClient viaCepResourceClient;
     private final SendingRabbitmqPublisher sendingRabbitmq;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
 
     @Transactional
     public User createUser(UserDTO userDTO) {
@@ -75,6 +82,33 @@ public class UserService {
     public void sendingStatusRabbitmq(ServiceStatus data) {
         try {
             sendingRabbitmq.showStatus(data);
+        } catch(Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public TokenDTO signInUser(AccountCredentialsDTO accountCredentialsDTO) {
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            accountCredentialsDTO.getUsername(),
+                            accountCredentialsDTO.getPassword()
+                    )
+            );
+
+            User user = findUserByUsername(accountCredentialsDTO.getUsername());
+
+            TokenDTO response = new TokenDTO();
+
+            if(user != null) {
+                response = jwtTokenProvider.createAccessToken(accountCredentialsDTO.getUsername());
+            } else {
+                throw new RuntimeException(
+                        String.format("User with username '%s' not found.", accountCredentialsDTO.getUsername())
+                );
+            }
+
+            return response;
         } catch(Exception e) {
             throw new RuntimeException(e.getMessage());
         }
