@@ -1,5 +1,7 @@
 package com.compass.aws_springboot.service;
 
+import com.compass.aws_springboot.domain.model.ServiceStatus;
+import com.compass.aws_springboot.infra.mqueue.SendingRabbitmqPublisher;
 import com.compass.aws_springboot.web.dto.ResponseViaCepDTO;
 import com.compass.aws_springboot.entities.User;
 import com.compass.aws_springboot.infra.clients.ViaCepResourceClient;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
     private final ViaCepResourceClient viaCepResourceClient;
+    private final SendingRabbitmqPublisher sendingRabbitmq;
 
     @Transactional
     public User createUser(UserDTO userDTO) {
@@ -29,6 +32,13 @@ public class UserService {
         newUser.setCity(response.getCity());
         newUser.setState(response.getState());
 
+        ServiceStatus serviceStatus = new ServiceStatus();
+
+        serviceStatus.setUsername(newUser.getUsername());
+        serviceStatus.setOperation("CREATE");
+
+        sendingStatusRabbitmq(serviceStatus);
+
         return userRepository.save(newUser);
     }
 
@@ -38,6 +48,13 @@ public class UserService {
         if(!user.getPassword().equalsIgnoreCase(updatePasswordDTO.getOldPassword())) {
             throw new RuntimeException("Incorrect password. Try again!");
         }
+
+        ServiceStatus serviceStatus = new ServiceStatus();
+
+        serviceStatus.setUsername(user.getUsername());
+        serviceStatus.setOperation("UPDATE");
+
+        sendingStatusRabbitmq(serviceStatus);
 
         user.setPassword(updatePasswordDTO.getNewPassword());
         userRepository.save(user);
@@ -53,5 +70,13 @@ public class UserService {
 
     public ResponseViaCepDTO findAddressByZipCode(String zipCode) {
         return viaCepResourceClient.getZipCodeInformation(zipCode);
+    }
+
+    public void sendingStatusRabbitmq(ServiceStatus data) {
+        try {
+            sendingRabbitmq.showStatus(data);
+        } catch(Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
