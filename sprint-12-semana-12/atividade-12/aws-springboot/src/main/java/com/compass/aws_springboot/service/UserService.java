@@ -19,6 +19,7 @@ import com.compass.aws_springboot.web.dto.security.TokenDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class UserService {
     private final SendingRabbitmqPublisher sendingRabbitmq;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public User createUser(UserDTO userDTO) {
@@ -44,21 +46,27 @@ public class UserService {
         newUser.setCity(response.getCity());
         newUser.setState(response.getState());
 
+        newUser.setPassword(encryptPassword(userDTO.getPassword()));
+
         sendStatusToMsNotify(newUser.getUsername(), "CREATE");
 
         return userRepository.save(newUser);
     }
 
+    public String encryptPassword(String password) {
+        return passwordEncoder.encode(password);
+    }
+
     public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
         User user = findUserByUsername(updatePasswordDTO.getUsername());
 
-        if(!user.getPassword().equalsIgnoreCase(updatePasswordDTO.getOldPassword())) {
+        if(!passwordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword())) {
             throw new InvalidPasswordException("Incorrect password. Try again!");
         }
 
         sendStatusToMsNotify(user.getUsername(), "UPDATE");
 
-        user.setPassword(updatePasswordDTO.getNewPassword());
+        user.setPassword(encryptPassword(updatePasswordDTO.getNewPassword()));
         userRepository.save(user);
     }
 

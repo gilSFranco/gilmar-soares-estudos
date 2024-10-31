@@ -6,7 +6,6 @@ import com.compass.aws_springboot.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -33,7 +32,8 @@ public class SecurityConfig {
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/users/register",
-            "/api/users/login"
+            "/api/users/login",
+            "/api/users/update-password"
     };
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
@@ -74,8 +74,8 @@ public class SecurityConfig {
                     )
                     .authorizeHttpRequests(
                             auth -> auth
-                                    .requestMatchers(HttpMethod.POST, ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
-                                    .requestMatchers(HttpMethod.PUT, ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
+                                    .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                                    //.requestMatchers(HttpMethod.PUT, ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
                                     .anyRequest().denyAll()
                     ).build();
 
