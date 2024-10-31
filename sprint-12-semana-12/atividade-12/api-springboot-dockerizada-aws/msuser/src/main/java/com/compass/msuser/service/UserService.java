@@ -1,10 +1,8 @@
 package com.compass.msuser.service;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.compass.msuser.domain.model.ServiceStatus;
-import com.compass.msuser.exceptions.AuthenticationNotCompleteException;
-import com.compass.msuser.exceptions.InvalidPasswordException;
-import com.compass.msuser.exceptions.MessageNotSendException;
-import com.compass.msuser.exceptions.UserNotFoundException;
+import com.compass.msuser.exceptions.*;
 import com.compass.msuser.infra.mqueue.SendingRabbitmqPublisher;
 import com.compass.msuser.security.jwt.JwtTokenProvider;
 import com.compass.msuser.web.dto.ResponseViaCepDTO;
@@ -58,16 +56,20 @@ public class UserService {
     }
 
     public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
-        User user = findUserByUsername(updatePasswordDTO.getUsername());
+        try {
+            User user = findUserByUsername(updatePasswordDTO.getUsername());
 
-        if(!passwordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword())) {
-            throw new InvalidPasswordException("Incorrect password. Try again!");
+            if(!passwordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword())) {
+                throw new InvalidPasswordException("Incorrect password. Try again!");
+            }
+
+            sendStatusToMsNotify(user.getUsername(), "UPDATE");
+
+            user.setPassword(encryptPassword(updatePasswordDTO.getNewPassword()));
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new TokenExpirationException("The token has expired.");
         }
-
-        sendStatusToMsNotify(user.getUsername(), "UPDATE");
-
-        user.setPassword(encryptPassword(updatePasswordDTO.getNewPassword()));
-        userRepository.save(user);
     }
 
     public void sendStatusToMsNotify(String username, String operation) {
@@ -122,7 +124,7 @@ public class UserService {
 
             return response;
         } catch(Exception e) {
-            throw new AuthenticationNotCompleteException(e.getMessage());
+            throw new AuthenticationNotCompleteException("Your credentials are incorrect.");
         }
     }
 }
