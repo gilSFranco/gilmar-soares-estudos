@@ -1,6 +1,10 @@
 package com.compass.aws_springboot.service;
 
 import com.compass.aws_springboot.domain.model.ServiceStatus;
+import com.compass.aws_springboot.exceptions.AuthenticationNotCompleteException;
+import com.compass.aws_springboot.exceptions.InvalidPasswordException;
+import com.compass.aws_springboot.exceptions.MessageNotSendException;
+import com.compass.aws_springboot.exceptions.UserNotFoundException;
 import com.compass.aws_springboot.infra.mqueue.SendingRabbitmqPublisher;
 import com.compass.aws_springboot.security.jwt.JwtTokenProvider;
 import com.compass.aws_springboot.web.dto.ResponseViaCepDTO;
@@ -30,6 +34,7 @@ public class UserService {
     @Transactional
     public User createUser(UserDTO userDTO) {
         ResponseViaCepDTO response = findAddressByZipCode(userDTO.getCep());
+
         User newUser = UserMapper.toUser(userDTO);
 
         newUser.setZipCode(response.getZipCode());
@@ -39,12 +44,7 @@ public class UserService {
         newUser.setCity(response.getCity());
         newUser.setState(response.getState());
 
-        ServiceStatus serviceStatus = new ServiceStatus();
-
-        serviceStatus.setUsername(newUser.getUsername());
-        serviceStatus.setOperation("CREATE");
-
-        sendingStatusRabbitmq(serviceStatus);
+        sendStatusToMsNotify(newUser.getUsername(), "CREATE");
 
         return userRepository.save(newUser);
     }
@@ -53,23 +53,27 @@ public class UserService {
         User user = findUserByUsername(updatePasswordDTO.getUsername());
 
         if(!user.getPassword().equalsIgnoreCase(updatePasswordDTO.getOldPassword())) {
-            throw new RuntimeException("Incorrect password. Try again!");
+            throw new InvalidPasswordException("Incorrect password. Try again!");
         }
 
-        ServiceStatus serviceStatus = new ServiceStatus();
-
-        serviceStatus.setUsername(user.getUsername());
-        serviceStatus.setOperation("UPDATE");
-
-        sendingStatusRabbitmq(serviceStatus);
+        sendStatusToMsNotify(user.getUsername(), "UPDATE");
 
         user.setPassword(updatePasswordDTO.getNewPassword());
         userRepository.save(user);
     }
 
+    public void sendStatusToMsNotify(String username, String operation) {
+        ServiceStatus serviceStatus = new ServiceStatus();
+
+        serviceStatus.setUsername(username);
+        serviceStatus.setOperation(operation);
+
+        sendingStatusRabbitmq(serviceStatus);
+    }
+
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(
-                () -> new RuntimeException(
+                () -> new UserNotFoundException(
                         String.format("User with username '%s' not found.", username)
                 )
         );
@@ -83,7 +87,7 @@ public class UserService {
         try {
             sendingRabbitmq.showStatus(data);
         } catch(Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new MessageNotSendException(e.getMessage());
         }
     }
 
@@ -103,14 +107,14 @@ public class UserService {
             if(user != null) {
                 response = jwtTokenProvider.createAccessToken(accountCredentialsDTO.getUsername());
             } else {
-                throw new RuntimeException(
+                throw new UserNotFoundException(
                         String.format("User with username '%s' not found.", accountCredentialsDTO.getUsername())
                 );
             }
 
             return response;
         } catch(Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new AuthenticationNotCompleteException(e.getMessage());
         }
     }
 }

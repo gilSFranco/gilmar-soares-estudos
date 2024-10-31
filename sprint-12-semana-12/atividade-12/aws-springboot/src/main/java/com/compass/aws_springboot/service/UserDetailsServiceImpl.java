@@ -1,6 +1,7 @@
 package com.compass.aws_springboot.service;
 
 import com.compass.aws_springboot.entities.User;
+import com.compass.aws_springboot.exceptions.UserNotFoundException;
 import com.compass.aws_springboot.repository.UserRepository;
 import com.compass.aws_springboot.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new RuntimeException(
+                () -> new UserNotFoundException(
                         String.format("User with username '%s' not found.", username)
                 )
         );

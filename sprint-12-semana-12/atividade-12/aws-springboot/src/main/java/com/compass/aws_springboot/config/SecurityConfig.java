@@ -1,5 +1,6 @@
 package com.compass.aws_springboot.config;
 
+import com.compass.aws_springboot.exceptions.AuthenticationNotCompleteException;
 import com.compass.aws_springboot.security.jwt.JwtTokenFilter;
 import com.compass.aws_springboot.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -63,22 +64,23 @@ public class SecurityConfig {
 
         try {
             return http
-                    .csrf(AbstractHttpConfigurer::disable)
-                    .formLogin(AbstractHttpConfigurer::disable)
                     .httpBasic(AbstractHttpConfigurer::disable)
+                    .csrf(AbstractHttpConfigurer::disable)
+                    .addFilterBefore(
+                            customFilter, UsernamePasswordAuthenticationFilter.class
+                    )
+                    .sessionManagement(
+                            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    )
                     .authorizeHttpRequests(
                             auth -> auth
                                     .requestMatchers(HttpMethod.POST, ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
-                                    .requestMatchers(HttpMethod.POST, ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
+                                    .requestMatchers(HttpMethod.PUT, ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
                                     .anyRequest().denyAll()
-                    ).sessionManagement(
-                            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    ).addFilterBefore(
-                            customFilter, UsernamePasswordAuthenticationFilter.class
                     ).build();
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new AuthenticationNotCompleteException(e.getMessage());
         }
     }
 }
