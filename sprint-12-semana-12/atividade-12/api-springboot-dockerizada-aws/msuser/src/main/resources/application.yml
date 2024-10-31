@@ -17,6 +17,13 @@ spring:
       ddl-auto: update
     show_sql: false
 
+springdoc:
+  swagger-ui:
+    path: /docs-msuser.html
+  api-docs:
+    path: /docs-msuser
+  packagesToScan: com.compass.msuser.web.controller
+
 mq:
   queues:
     listener-rabbitmq: listener-rabbitmq
