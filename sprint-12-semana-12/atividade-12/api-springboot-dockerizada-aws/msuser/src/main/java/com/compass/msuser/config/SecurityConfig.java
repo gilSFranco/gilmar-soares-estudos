@@ -1,8 +1,8 @@
-package com.compass.aws_springboot.config;
+package com.compass.msuser.config;
 
-import com.compass.aws_springboot.exceptions.AuthenticationNotCompleteException;
-import com.compass.aws_springboot.security.jwt.JwtTokenFilter;
-import com.compass.aws_springboot.security.jwt.JwtTokenProvider;
+import com.compass.msuser.exceptions.AuthenticationNotCompleteException;
+import com.compass.msuser.security.jwt.JwtTokenFilter;
+import com.compass.msuser.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
