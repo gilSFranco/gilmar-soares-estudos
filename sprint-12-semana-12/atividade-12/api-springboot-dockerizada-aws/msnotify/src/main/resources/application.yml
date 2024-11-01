@@ -10,6 +10,11 @@ spring:
     mongodb:
       uri: mongodb://mongoimg:27017/msnotify
 
+logging:
+  level:
+    org.springframework.amqp: DEBUG
+    com.rabbitmq.client: DEBUG
+
 mq:
   queues:
     listener-rabbitmq: listener-rabbitmq

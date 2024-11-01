@@ -23,6 +23,35 @@ services:
       - mysqlimg
       - rabbitmqimg
 
+  msnotify:
+    image: msnotifyimg
+    build:
+      context: ./msnotify
+      dockerfile: Dockerfile
+    container_name: msnotify
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongoimg:27017/msnotify
+      - SPRING_RABBITMQ_HOST=rabbitmqimg
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    depends_on:
+      - mongoimg
+      - rabbitmqimg
+      - msuser
+
+  mongoimg:
+    image: mongo:5.0
+    container_name: mongo
+    environment:
+      MONGO_INITDB_DATABASE: msnotify
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
   mysqlimg:
     image: mysql:8.0
     container_name: mysql
@@ -46,3 +75,4 @@ services:
 
 volumes:
   db_data:
+  mongo_data:
