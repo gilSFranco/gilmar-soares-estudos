@@ -2,17 +2,17 @@ spring:
   application:
     name: msnotify
   rabbitmq:
-    host: localhost
+    host: rabbitmqimg
     port: 5672
     username: guest
     password: guest
   data:
     mongodb:
-      uri: mongodb://localhost:27017/msnotify
+      uri: mongodb://mongoimg:27017/msnotify
 
 mq:
   queues:
     listener-rabbitmq: listener-rabbitmq
 
 server:
-  port: 8082
+  port: 8081

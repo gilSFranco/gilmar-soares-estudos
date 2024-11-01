@@ -2,13 +2,13 @@ spring:
   application:
     name: msuser
   rabbitmq:
-    host: localhost
+    host: rabbitmqimg
     port: 5672
     username: guest
     password: guest
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/msuser?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://mysqlimg:3306/msuser?useTimezone=true&serverTimezone=UTC
     username: root
     password: root
   jpa:
@@ -16,9 +16,6 @@ spring:
     hibernate:
       ddl-auto: update
     show_sql: false
-
-server:
-  port: 8081
 
 logging:
   level:
