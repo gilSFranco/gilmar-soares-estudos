@@ -31,19 +31,6 @@ public class GlobalExceptionHandler {
                 ));
     }
 
-    @ExceptionHandler(TokenExpirationException .class)
-    public ResponseEntity<ErrorMessage> handleTokenExpirationException(TokenExpiredException ex, HttpServletRequest request) {
-        log.error("Error on API - {}", ex.getMessage());
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(
-                        request,
-                        HttpStatus.UNAUTHORIZED,
-                        ex.getMessage()
-                ));
-    }
-
     @ExceptionHandler(InvalidPasswordException.class)
     public ResponseEntity<ErrorMessage> handleInvalidPasswordException(Exception ex, HttpServletRequest request) {
         log.error("Error on API - {}", ex.getMessage());
@@ -74,11 +61,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleMessageNotSendException(Exception ex, HttpServletRequest request) {
         log.error("Error on API - {}", ex.getMessage());
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.INTERNAL_SERVER_ERROR) // Acredito que não seja o status code apropriado
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(
                         request,
-                        HttpStatus.INTERNAL_SERVER_ERROR,
+                        HttpStatus.INTERNAL_SERVER_ERROR, // Acredito que não seja o status code apropriado
                         ex.getMessage()
                 ));
     }
@@ -87,11 +74,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleAuthenticationNotCompleteException(Exception ex, HttpServletRequest request) {
         log.error("Error on API - {}", ex.getMessage());
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(HttpStatus.INTERNAL_SERVER_ERROR) // Acredito que não seja o status code apropriado
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(
                         request,
-                        HttpStatus.INTERNAL_SERVER_ERROR,
+                        HttpStatus.INTERNAL_SERVER_ERROR, // Acredito que não seja o status code apropriado
                         ex.getMessage()
                 ));
     }

@@ -24,14 +24,6 @@ public class ListenerRabbitmqSubscriber {
 
         notifyService.insert(notify);
 
-        /*
-        log.info(
-                "\n{\n"
-                        + "  username: " + notify.getUsername() + "\n"
-                        + "  password: " + notify.getOperation() + "\n"
-                + "}"
-        );
-         */
         log.info(
                 String.format("The username %s made an request to: %s", notify.getUsername(), notify.getOperation())
         );

@@ -53,23 +53,20 @@ public class UserService {
 
     public String encryptPassword(String password) {
         return passwordEncoder.encode(password);
+        // Tratativa de erro, caso a senha não senha criptografada com sucesso
     }
 
     public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
-        try {
-            User user = findUserByUsername(updatePasswordDTO.getUsername());
+        User user = findUserByUsername(updatePasswordDTO.getUsername());
 
-            if(!passwordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword())) {
-                throw new InvalidPasswordException("Incorrect password. Try again!");
-            }
-
-            sendStatusToMsNotify(user.getUsername(), "UPDATE");
-
-            user.setPassword(encryptPassword(updatePasswordDTO.getNewPassword()));
-            userRepository.save(user);
-        } catch (Exception e) {
-            throw new TokenExpirationException("The token has expired.");
+        if(!passwordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword())) {
+            throw new InvalidPasswordException("Incorrect password. Try again!");
         }
+
+        sendStatusToMsNotify(user.getUsername(), "UPDATE");
+
+        user.setPassword(encryptPassword(updatePasswordDTO.getNewPassword()));
+        userRepository.save(user);
     }
 
     public void sendStatusToMsNotify(String username, String operation) {
@@ -90,6 +87,8 @@ public class UserService {
     }
 
     public ResponseViaCepDTO findAddressByZipCode(String zipCode) {
+        // Acredito que aqui tambem deveria ter uma tratativa de erro
+        // caso a requisição der errado
         return viaCepResourceClient.getZipCodeInformation(zipCode);
     }
 
