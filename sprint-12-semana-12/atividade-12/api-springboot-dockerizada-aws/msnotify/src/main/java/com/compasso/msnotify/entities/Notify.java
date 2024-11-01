@@ -12,6 +12,9 @@ import java.io.Serializable;
 @ToString
 @Document(collection = "users")
 public class Notify implements Serializable {
+    // Adicionar o id
     private String username;
     private String operation;
+
+    // E um construtor para conseguir cadastrar a notificação
 }

@@ -1,6 +1,5 @@
 package com.compass.msuser.service;
 
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.compass.msuser.domain.model.ServiceStatus;
 import com.compass.msuser.exceptions.*;
 import com.compass.msuser.infra.mqueue.SendingRabbitmqPublisher;
