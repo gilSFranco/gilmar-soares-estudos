@@ -17,11 +17,16 @@ spring:
       ddl-auto: update
     show_sql: false
 
+logging:
+  level:
+    org.springframework.amqp: DEBUG
+    com.rabbitmq.client: DEBUG
+
 springdoc:
   swagger-ui:
-    path: /docs-msuser.html
+    enabled: true
   api-docs:
-    path: /docs-msuser
+    enabled: true
   packagesToScan: com.compass.msuser.web.controller
 
 mq:

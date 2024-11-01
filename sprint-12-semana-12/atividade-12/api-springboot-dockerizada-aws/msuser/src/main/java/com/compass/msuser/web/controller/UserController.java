@@ -35,6 +35,7 @@ public class UserController {
 
     private final UserService userService;
 
+
     @Operation(
             summary = "User registration",
             description = "Resource to create a new user.",

@@ -5,10 +5,12 @@ import com.compasso.msnotify.service.NotifyService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class ListenerRabbitmqSubscriber {
@@ -22,6 +24,16 @@ public class ListenerRabbitmqSubscriber {
 
         notifyService.insert(notify);
 
-        System.out.println(notify);
+        /*
+        log.info(
+                "\n{\n"
+                        + "  username: " + notify.getUsername() + "\n"
+                        + "  password: " + notify.getOperation() + "\n"
+                + "}"
+        );
+         */
+        log.info(
+                String.format("The username %s made an request to: %s", notify.getUsername(), notify.getOperation())
+        );
     }
 }
