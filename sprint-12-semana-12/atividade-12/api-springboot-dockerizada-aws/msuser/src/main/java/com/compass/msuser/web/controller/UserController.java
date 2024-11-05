@@ -58,6 +58,14 @@ public class UserController {
                                     mediaType = "application/json;",
                                     schema = @Schema(implementation = ErrorMessage.class)
                             )
+                    ),
+                    @ApiResponse(
+                            responseCode = "409",
+                            description = "Username already in use.",
+                            content = @Content(
+                                    mediaType = "application/json;",
+                                    schema = @Schema(implementation = ErrorMessage.class)
+                            )
                     )
             }
     )
@@ -89,6 +97,8 @@ public class UserController {
                                     schema = @Schema(implementation = ErrorMessage.class)
                             )
                     ),
+                    // Não sei ao certo se essa exceção ocorrerá de fato, mas ela pode ocorrer
+                    // devido ao uso do findUserByUsername.
                     @ApiResponse(
                             responseCode = "404",
                             description = "User not found.",
@@ -98,8 +108,8 @@ public class UserController {
                             )
                     ),
                     @ApiResponse(
-                            responseCode = "500",
-                            description = "Authentication did not occur as expected.",
+                            responseCode = "401",
+                            description = "User credentials are incorrect.",
                             content = @Content(
                                     mediaType = "application/json;",
                                     schema = @Schema(implementation = ErrorMessage.class)
