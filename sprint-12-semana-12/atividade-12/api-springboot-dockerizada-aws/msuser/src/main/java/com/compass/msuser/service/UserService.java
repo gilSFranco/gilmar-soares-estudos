@@ -14,6 +14,7 @@ import com.compass.msuser.web.dto.mapper.UserMapper;
 import com.compass.msuser.web.dto.security.AccountCredentialsDTO;
 import com.compass.msuser.web.dto.security.TokenDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,12 +48,15 @@ public class UserService {
 
         sendStatusToMsNotify(newUser.getUsername(), "CREATE");
 
-        return userRepository.save(newUser);
+        try{
+            return userRepository.save(newUser);
+        } catch (DataIntegrityViolationException e) {
+            throw new UniqueUsernameViolationException("The user already exists.");
+        }
     }
 
     public String encryptPassword(String password) {
         return passwordEncoder.encode(password);
-        // Tratativa de erro, caso a senha não senha criptografada com sucesso
     }
 
     public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
@@ -86,8 +90,6 @@ public class UserService {
     }
 
     public ResponseViaCepDTO findAddressByZipCode(String zipCode) {
-        // Acredito que aqui tambem deveria ter uma tratativa de erro
-        // caso a requisição der errado
         return viaCepResourceClient.getZipCodeInformation(zipCode);
     }
 
@@ -95,12 +97,13 @@ public class UserService {
         try {
             sendingRabbitmq.showStatus(data);
         } catch(Exception e) {
-            throw new MessageNotSendException(e.getMessage());
+            throw new MessageNotSendException("Connection not established between services.");
         }
     }
 
     public TokenDTO signInUser(AccountCredentialsDTO accountCredentialsDTO) {
         try{
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             accountCredentialsDTO.getUsername(),
@@ -109,18 +112,14 @@ public class UserService {
             );
 
             User user = findUserByUsername(accountCredentialsDTO.getUsername());
-
             TokenDTO response = new TokenDTO();
 
             if(user != null) {
                 response = jwtTokenProvider.createAccessToken(accountCredentialsDTO.getUsername());
-            } else {
-                throw new UserNotFoundException(
-                        String.format("User with username '%s' not found.", accountCredentialsDTO.getUsername())
-                );
             }
 
             return response;
+
         } catch(Exception e) {
             throw new AuthenticationNotCompleteException("Your credentials are incorrect.");
         }

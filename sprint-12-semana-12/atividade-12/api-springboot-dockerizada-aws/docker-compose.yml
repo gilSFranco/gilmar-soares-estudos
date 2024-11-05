@@ -16,13 +16,10 @@ services:
       - SPRING_DATASOURCE_PASSWORD=root
       - JWT_SECRET_KEY=secrets
       - JWT_EXPIRATION=3600000
-      - SPRING_RABBITMQ_HOST=rabbitmqimg
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_RABBITMQ_QUEUE=listener
+      - SPRING_RABBITMQ_ADDRESSES=amqps://uzgvrvob:zH6m8uSarkXR4PMem9NfPbx-6Hhw84TJ@shrimp.rmq.cloudamqp.com/uzgvrvob
     depends_on:
       - mysqlimg
-      - rabbitmqimg
     networks:
       - app-network
 
@@ -37,13 +34,10 @@ services:
       - "8081:8081"
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongoimg:27017/msnotify
-      - SPRING_RABBITMQ_HOST=rabbitmqimg
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_RABBITMQ_QUEUE=listener
+      - SPRING_RABBITMQ_ADDRESSES=amqps://uzgvrvob:zH6m8uSarkXR4PMem9NfPbx-6Hhw84TJ@shrimp.rmq.cloudamqp.com/uzgvrvob
     depends_on:
       - mongoimg
-      - rabbitmqimg
       - msuser
     networks:
       - app-network
@@ -72,19 +66,6 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-    networks:
-      - app-network
-
-  rabbitmqimg:
-    image: rabbitmq:4.0-management
-    restart: always
-    container_name: rabbitmq
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     networks:
       - app-network
 

@@ -17,7 +17,7 @@ public class ListenerRabbitmqSubscriber {
 
     private final NotifyService notifyService;
 
-    @RabbitListener(queues = "${mq.queues.listener-rabbitmq}")
+    @RabbitListener(queues = "${spring.rabbitmq.queue}")
     public void listen(@Payload String payload) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Notify notify = mapper.readValue(payload, Notify.class);
