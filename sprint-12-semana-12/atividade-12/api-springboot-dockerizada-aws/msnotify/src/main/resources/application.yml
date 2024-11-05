@@ -2,10 +2,8 @@ spring:
   application:
     name: msnotify
   rabbitmq:
-    host: rabbitmqimg
-    port: 5672
-    username: guest
-    password: guest
+    queue: listener
+    addresses: amqps://uzgvrvob:zH6m8uSarkXR4PMem9NfPbx-6Hhw84TJ@shrimp.rmq.cloudamqp.com/uzgvrvob
   data:
     mongodb:
       uri: mongodb://mongoimg:27017/msnotify
@@ -14,10 +12,6 @@ logging:
   level:
     org.springframework.amqp: DEBUG
     com.rabbitmq.client: DEBUG
-
-mq:
-  queues:
-    listener-rabbitmq: listener-rabbitmq
 
 server:
   port: 8081
