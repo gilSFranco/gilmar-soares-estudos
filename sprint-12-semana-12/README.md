@@ -145,7 +145,7 @@ After starting the application server, you can access the interactive documentat
 - **Endpoint**:
 
 ```http
-  POST /api/users/register
+POST /api/users/register
 ```
 
 - **Description**: Resource to **create** a **new user**.
@@ -206,7 +206,7 @@ After starting the application server, you can access the interactive documentat
 - **Endpoint**:
 
 ```http
-  POST /api/users/login
+POST /api/users/login
 ```
 
 - **Description**: Resource to **sign in** a **user**.
@@ -261,7 +261,7 @@ After starting the application server, you can access the interactive documentat
 - **Endpoint**:
 
 ```http
-  PUT /api/users/update-password
+PUT /api/users/update-password
 ```
 
 - **Description**: Resource to **sign in** a **user**.
