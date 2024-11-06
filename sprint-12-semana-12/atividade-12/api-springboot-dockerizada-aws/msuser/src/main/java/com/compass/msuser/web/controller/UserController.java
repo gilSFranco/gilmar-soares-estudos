@@ -97,8 +97,10 @@ public class UserController {
                                     schema = @Schema(implementation = ErrorMessage.class)
                             )
                     ),
-                    // Não sei ao certo se essa exceção ocorrerá de fato, mas ela pode ocorrer
-                    // devido ao uso do findUserByUsername.
+                    /*
+                        Não sei ao certo se essa exceção ocorrerá de fato, mas ela pode ocorrer
+                        devido ao uso do método findUserByUsername.
+                     */
                     @ApiResponse(
                             responseCode = "404",
                             description = "User not found.",
@@ -129,8 +131,8 @@ public class UserController {
             description = "Resource to update the password of an already registered user.",
             responses = {
                     @ApiResponse(
-                            responseCode = "200",
-                            description = "User successfully signed in."
+                            responseCode = "204",
+                            description = "Password updated successfully."
                     ),
                     @ApiResponse(
                             responseCode = "400",
@@ -148,6 +150,12 @@ public class UserController {
                                     schema = @Schema(implementation = ErrorMessage.class)
                             )
                     ),
+                    /*
+                        Sei que não é melhor maneira de retornar um erro,
+                        mas a questão de tratar a expiração do token, eu não consegui fazer.
+                        Por isso ele acaba retornando esse erro, e por algum motivo
+                        ele acaba não retornando no formato de ErrorMessage.
+                    */
                     @ApiResponse(
                             responseCode = "500",
                             description = "Authentication did not occur as expected.",

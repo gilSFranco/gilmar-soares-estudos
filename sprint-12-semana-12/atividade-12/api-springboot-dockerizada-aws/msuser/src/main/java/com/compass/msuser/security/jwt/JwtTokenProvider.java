@@ -3,6 +3,7 @@ package com.compass.msuser.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.compass.msuser.exceptions.InvalidJwtAuthenticationException;
 import com.compass.msuser.web.dto.security.TokenDTO;
@@ -66,15 +67,11 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         DecodedJWT decodedJWT = decodedToken(token);
 
-        try{
-            if(decodedJWT.getExpiresAt().before(new Date())) {
-               return false;
-            }
-
-            return true;
-        } catch (Exception e){
-            throw new InvalidJwtAuthenticationException("Expired or invalid JWT token!");
+        if(decodedJWT.getExpiresAt().before(new Date())) {
+            return false;
         }
+
+        return true;
     }
 
     public TokenDTO createAccessToken(String username) {
